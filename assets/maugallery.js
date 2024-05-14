@@ -145,17 +145,19 @@
           }
         });
       }
-      let index = 0,
-        next = null;
+      let index = -1;
+      let next = null;
 
-      $(imagesCollection).each(function(i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
+      for(let i = 0; i<imagesCollection.length;i++) {
+        if ($(activeImage).attr("src") === $(imagesCollection[i]).attr("src")) {
           index = i ;
+          break;
         }
-      });
-      next =
-        imagesCollection[index] ||
-        imagesCollection[imagesCollection.length - 1];
+      }
+      if(index === -1){
+        return;
+      }
+      next = imagesCollection[(index-1 + imagesCollection.length) % imagesCollection.length];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     nextImage() {
@@ -184,15 +186,19 @@
           }
         });
       }
-      let index = 0,
-        next = null;
+      let index = -1;
+      let next = null;
 
-      $(imagesCollection).each(function(i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
-          index = i;
+      for(let i = 0; i<imagesCollection.length;i++) {
+        if ($(activeImage).attr("src") === $(imagesCollection[i]).attr("src")) {
+          index = i ;
+          break;
         }
-      });
-      next = imagesCollection[index] || imagesCollection[0];
+      }
+      if(index === -1){
+        return;
+      }
+      next = imagesCollection[(index+1 + imagesCollection.length) % imagesCollection.length];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     createLightBox(gallery, lightboxId, navigation) {
